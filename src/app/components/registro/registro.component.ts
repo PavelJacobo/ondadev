@@ -10,8 +10,13 @@ import { Router } from '@angular/router';
 export class RegistroComponent implements OnInit {
   public email: string;
   public passwd: string;
+
+
   constructor(private _authService: AuthService,
-              private router: Router) { }
+              private _router: Router,
+            ) {
+
+              }
 
   ngOnInit() {
   }
@@ -21,7 +26,7 @@ export class RegistroComponent implements OnInit {
                      .then((res)=>{
                        console.log('USUARIO REGISTRADO');
                        console.log(res);
-                       this.router.navigate(['/admin']);
+                       this._router.navigate(['/admin']);
                      }).catch((err)=>{
                        console.log(err);
                      })

@@ -14,6 +14,8 @@ import { FormsModule } from '@angular/forms';
 
 //
 
+
+
 import { AuthGuard } from './guards/auth.guard';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -42,7 +44,7 @@ import { AdminComponent } from './components/admin/admin.component';
     AngularFireAuthModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
-  providers: [AuthGuard ],
+  providers: [ ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
