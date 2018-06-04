@@ -1,3 +1,28 @@
-<p>
-  navbar works!
-</p>
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navOndaPol" aria-controls="navOndaPol" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">OndaAPP</a>
+
+  <div class="collapse navbar-collapse" id="navOndaPol">
+    <ul class="navbar-nav mr-auto mt-2 mt-md-0">
+      <li class="nav-item active">
+        <a class="nav-link" [routerLink]="['/home']">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/about']">About</a>
+      </li>
+    </ul>
+    <ul class="navbar-nav mx-auto mt-2 mt-md-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Login</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Logout</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Registrarse</a>
+      </li>
+    </ul>
+  </div>
+</nav>
