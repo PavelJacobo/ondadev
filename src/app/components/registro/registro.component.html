@@ -1,3 +1,24 @@
-<p>
-  registro works!
-</p>
+<div class="row">
+  <div class="col-md-6 mx-auto mt-5">
+    <div class="card">
+      <div class="card-body">
+        <h1>Registra un usuario</h1>
+        <form (submit)="registerUser()">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input [(ngModel)]="email"
+                  type="email" name="email" class="form-control">
+          </div>
+          <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input [(ngModel)]="passwd"
+                  type="password" name="password" class="form-control">
+          </div>
+          <div class="text-center">
+                <button type="submit" name="button" class="btn btn-outline-primary">Aceptar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
