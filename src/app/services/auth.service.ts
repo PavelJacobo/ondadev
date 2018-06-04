@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
 
-  constructor(private _afAuth: AngularFireAuth) { }
+  constructor(public _afAuth: AngularFireAuth) { }
 
   registerUser(email:string, pass:string){
     return new Promise((resolve,reject)=>{
