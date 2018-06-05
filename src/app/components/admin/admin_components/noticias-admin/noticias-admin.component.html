@@ -1,0 +1,65 @@
+<div class="container main-container">
+  <div class="row">
+    <div class="col-md-6">
+      <a href="" class="btn btn-link">
+        <i class="fa fa-arrow-circle-o-left"></i>Volver
+      </a>
+
+    </div>
+    <div class="col-md-6">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10 mx-auto mt-2">
+      <div class="card">
+        <div class="card-header">Nuevo Evento</div>
+        <div class="card-body">
+          <form #formNoticia="ngForm" (submit)="addNoticia(formNoticia)">
+
+            <div class="form-group">
+              <label for="titulo">Titulo</label>
+              <input [(ngModel)]="titulo"
+                      type="text" name="titulo" id="titulo" class="form-control">
+            </div>
+
+            <div class="form-group">
+              <label for="contenido">contenido</label>
+              <textarea   [(ngModel)]="contenido"
+                          type="text" name="contenido" id="contenido" class="form-control"></textarea>
+            </div>
+            <div class="row">
+              <div class="form-group col-md-6 ">
+                <label for="nombreUsuario">Creado Por</label>
+                <input [(ngModel)]="nombreUsuario"
+                        type="text" name="nombreUsuario" class="form-control" value="{{nombreUsuario}}" readonly>
+              </div>
+              <!-- <div class="form-group col-md-6 ">
+                <label for="file" class="custom-file-upload">Cargar imagen
+                  <input [(ngModel)]="imagen"
+                          type="file" name="file" class="form-control">
+                </label>
+              </div> -->
+            </div>
+            <div class="form-group col-md-12 d-none">
+              <label for="id_usuario"></label>
+              <input  [(ngModel)]="idUsuario"
+                      type="text" name="idUsuario" id="idUsuario" class="form-control" [value]="idUsuario">
+            </div>
+            <div class="row text-center justify-content-around">
+              <div class="form-group  ">
+                <button type="submit" class="btn btn-primary">Guardar</button>
+              </div>
+              <div class="form-group text-center">
+                <button type="" class="btn btn-warning">Cancelar</button>
+              </div>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

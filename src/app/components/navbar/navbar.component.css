@@ -1,4 +1,9 @@
 img.rounded-circle{
-  height: 45px;
-  width: 45px;
+  max-height: 45px;
+  max-width: 45px;
+}
+.navbar-btn{
+  max-height: 45px;
+  margin-right: 10px;
+  padding: 0px;
 }

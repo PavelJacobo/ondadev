@@ -12,22 +12,25 @@
       <li class="nav-item">
         <a class="nav-link" [routerLink]="['/about']">About</a>
       </li>
-    </ul>
-    <ul class="navbar-nav mx-auto mt-2 mt-md-0">
-      <li class="nav-item active btn btn-success" *ngIf="!isLogin">
-        <a class="nav-link"[routerLink]="['/login']">Login</a>
+      <li class="nav-item" *ngIf="isLogin">
+        <a class="nav-link" [routerLink]="['/administrador']">Administrador</a>
       </li>
-      <li class="nav-item btn btn-primary" *ngIf="!isLogin">
+    </ul>
+    <ul class="navbar-nav pull-right  mt-2 mt-md-0">
+      <li class="nav-item active btn btn-success navbar-btn" *ngIf="!isLogin">
+        <a class="nav-link"[routerLink]="['/login']">Entrar</a>
+      </li>
+      <li class="nav-item btn btn-primary navbar-btn" *ngIf="!isLogin">
         <a class="nav-link" [routerLink]="['/registro']">Registrarse</a>
       </li>
-      <li class="nav-item active btn btn-danger" *ngIf="isLogin">
-        <a class="nav-link" (click)="logout()">Logout</a>
+      <li class="nav-item " *ngIf="isLogin">
+        <img [src]="fotoUsuario" class="rounded-circle img-fluid">
       </li>
-      <li class="nav-item" *ngIf="isLogin">
+      <li class="nav-item " *ngIf="isLogin">
         <span class="nav-link"><small>{{ nombreUsuario }}</small></span>
       </li>
-      <li class="nav-item" *ngIf="isLogin">
-        <img [src]="fotoUsuario" class="rounded-circle img-fluid">
+      <li class="nav-item active btn btn-danger navbar-btn " *ngIf="isLogin" (click)="logout()">
+        <a class="nav-link">Salir</a>
       </li>
     </ul>
   </div>

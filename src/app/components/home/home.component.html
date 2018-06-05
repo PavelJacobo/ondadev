@@ -1,3 +1,9 @@
-<p>
-  home works!
-</p>
+<div class="row">
+  <div class="card-group">
+    <div class="card" *ngFor="let noticia of noticias">
+      <div class="card-header">{{ noticia.titulo }}</div>
+      <div class="body"><p>{{ noticia.contenido}}</p><span>{{ noticia.nombreUsuario}}</span>
+      <span>{{ noticia.fecha | date }}</span></div>
+    </div>
+  </div>
+</div>

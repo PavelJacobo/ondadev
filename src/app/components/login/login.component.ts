@@ -43,4 +43,11 @@ export class LoginComponent implements OnInit {
                        this._router.navigate(['/administrador']);
                      }).catch( err => console.log(err.message));
   }
+
+  twitterLogin(){
+    this._authService.twitterLogin()
+                     .then((res)=>{
+                       this._router.navigate(['administrador']);
+                     }).catch(err => console.log(err.message));
+  }
 }

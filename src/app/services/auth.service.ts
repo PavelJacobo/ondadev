@@ -44,4 +44,8 @@ export class AuthService {
     return this._afAuth.auth.signInWithPopup( new firebase.auth.FacebookAuthProvider());
   }
 
+  twitterLogin(){
+    return this._afAuth.auth.signInWithPopup( new firebase.auth.TwitterAuthProvider());
+  }
+
 }

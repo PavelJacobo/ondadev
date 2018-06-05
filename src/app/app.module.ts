@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+
 //FIREBASE modules
 
 import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 
@@ -26,6 +28,11 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { RegistroComponent } from './components/registro/registro.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminComponent } from './components/admin/admin.component';
+import { NoticiasAdminComponent } from './components/admin/admin_components/noticias-admin/noticias-admin.component';
+import { ProgramacionAdminComponent } from './components/admin/admin_components/programacion-admin/programacion-admin.component';
+import { DetalleComponent } from './components/detalle/detalle.component';
+import { EditarComponent } from './components/editar/editar.component';
+
 
 @NgModule({
   declarations: [
@@ -35,13 +42,18 @@ import { AdminComponent } from './components/admin/admin.component';
     NavbarComponent,
     RegistroComponent,
     LoginComponent,
-    AdminComponent
+    AdminComponent,
+    NoticiasAdminComponent,
+    ProgramacionAdminComponent,
+    DetalleComponent,
+    EditarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     AngularFireAuthModule,
+    AngularFirestoreModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [ ],
