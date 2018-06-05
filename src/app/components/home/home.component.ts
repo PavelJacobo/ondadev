@@ -10,6 +10,7 @@ import { Noticias } from '../../models/noticias';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+
   public noticias:Noticias[];
   constructor( private _noticiasService: NoticiasService) { }
 
@@ -17,8 +18,14 @@ export class HomeComponent implements OnInit {
 
     this._noticiasService.getNoticias().subscribe((res)=>{
       console.log(res);
-      this.noticias = res;
+      this.noticias = res.sort((a,b)=>{
+        return a.id_content - b.id_content;
+      });
+
+      console.log("SUPUESTAMENTEO ORDENADO", this.noticias);
     });
+
+    
   }
 
 }

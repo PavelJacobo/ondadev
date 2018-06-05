@@ -1,0 +1,10 @@
+.card {
+    min-width: 300px;
+    margin: 5px auto;
+}
+
+.text-fecha {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+}

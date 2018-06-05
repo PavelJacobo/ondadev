@@ -50,7 +50,16 @@ export class NoticiasAdminComponent implements OnInit {
   }
   addNoticia({value}: {value: Noticias}){
     console.log(value);
-    value.fecha = new Date();
+    let obj = new Date();
+    let objA = obj.getUTCFullYear();
+    let objM = obj.getUTCMonth();
+    let objD = obj.getUTCDate();
+    let objH = obj.getUTCHours();
+    let objMn = obj.getUTCMinutes();
+    let objS = obj.getUTCSeconds();
+    value.id_content = Number(`${objA}${objM}${objD}${objH}${objMn}${objS}`);
+    value.fecha = new Date().toString();
+
     this._noticiasService.addNoticia(value);
     this._router.navigate(['/home']);
 

@@ -6,7 +6,8 @@ export interface Noticias {
   titulo:string;
   contenido:string;
   imagen?:string;
-  fecha?: Date;
+  fecha?:any;
+  id_content?:number;
 
 
 }

@@ -32,6 +32,7 @@ import { NoticiasAdminComponent } from './components/admin/admin_components/noti
 import { ProgramacionAdminComponent } from './components/admin/admin_components/programacion-admin/programacion-admin.component';
 import { DetalleComponent } from './components/detalle/detalle.component';
 import { EditarComponent } from './components/editar/editar.component';
+import { NoimagePipe } from './pipes/noimage.pipe';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { EditarComponent } from './components/editar/editar.component';
     NoticiasAdminComponent,
     ProgramacionAdminComponent,
     DetalleComponent,
-    EditarComponent
+    EditarComponent,
+    NoimagePipe
   ],
   imports: [
     BrowserModule,
