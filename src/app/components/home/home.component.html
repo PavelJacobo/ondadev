@@ -4,7 +4,7 @@
       <img class="card-img" [src]="noticias[noticias.length - 1].imagen | noimage" alt="Card image">
       <div class="card-img-overlay">
         <h5 class="card-title">{{ noticias[noticias.length - 1].titulo }}</h5>
-        <p class="card-text">{{ noticias[noticias.length - 1].contenido }}</p>
+        <p class="card-text">{{ noticias[noticias.length - 1].contenido | slice:0:200 }}</p>
         <p class="card-text text-right text-fecha">{{ noticias[noticias.length - 1].fecha | date }}</p>               
       </div>
     </div>
@@ -15,7 +15,7 @@
         <img [src]="noticia.imagen | noimage" alt="imagen de noticia" class="card-img-top">
         <div class="card-body">
           <h5 class="card-title">{{ noticia.titulo}}</h5>
-          <p class="card-text">{{noticia.contenido}}</p>
+          <p class="card-text">{{ noticia.contenido | slice:0:200 }}...</p>
           <p><small class="text-muted">{{noticia.nombreUsuario}}</small></p>
         </div>
       </div>

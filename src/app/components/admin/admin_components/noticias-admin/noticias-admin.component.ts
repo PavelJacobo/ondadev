@@ -17,6 +17,7 @@ export class NoticiasAdminComponent implements OnInit {
   public idUsuario:string;
   public imagen:string;
   public contenido:string;
+  public titulo:string;
 
   noticia: Noticias = {
     id: '',
@@ -50,19 +51,27 @@ export class NoticiasAdminComponent implements OnInit {
   }
   addNoticia({value}: {value: Noticias}){
     console.log(value);
-    let obj = new Date();
+    /* let obj = new Date();
     let objA = obj.getUTCFullYear();
     let objM = obj.getUTCMonth();
     let objD = obj.getUTCDate();
     let objH = obj.getUTCHours();
-    let objMn = obj.getUTCMinutes();
-    let objS = obj.getUTCSeconds();
+    let objMn = this.getMinutesWithZero(obj);
+    let objS = this.getSecundesWithZero(obj);
     value.id_content = Number(`${objA}${objM}${objD}${objH}${objMn}${objS}`);
     value.fecha = new Date().toString();
 
     this._noticiasService.addNoticia(value);
-    this._router.navigate(['/home']);
+    this._router.navigate(['/home']); */
 
+  }
+
+  getMinutesWithZero(obj){
+    return (obj.getMinutes() < 10 ? '0' : '') + obj.getMinutes();
+  }
+
+  getSecundesWithZero(obj){
+    return (obj.getSeconds() < 10 ? '0' : '') + obj.getSeconds();
   }
 
 
