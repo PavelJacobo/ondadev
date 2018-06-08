@@ -33,6 +33,7 @@ import { ProgramacionAdminComponent } from './components/admin/admin_components/
 import { DetalleComponent } from './components/detalle/detalle.component';
 import { EditarComponent } from './components/editar/editar.component';
 import { NoimagePipe } from './pipes/noimage.pipe';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 
 @NgModule({
@@ -56,6 +57,7 @@ import { NoimagePipe } from './pipes/noimage.pipe';
     FormsModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [ ],

@@ -3,6 +3,12 @@ import { AuthService } from '../../../../services/auth.service';
 import { NoticiasService } from '../../../../services/noticias.service';
 import { Noticias } from '../../../../models/noticias';
 import { Router } from '@angular/router';
+import { SubirImagenService } from '../../../../services/subir-imagen.service';
+//
+import * as firebase from 'firebase';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
+import { Observable } from '@firebase/util';
+
 
 
 @Component({
@@ -18,6 +24,7 @@ export class NoticiasAdminComponent implements OnInit {
   public imagen:string;
   public contenido:string;
   public titulo:string;
+  public labelfoto:string = 'Subir Imagen';
 
   noticia: Noticias = {
     id: '',
@@ -31,7 +38,9 @@ export class NoticiasAdminComponent implements OnInit {
 
   constructor(private _authService:AuthService,
               private _noticiasService: NoticiasService,
-              private _router: Router) {
+              private _router: Router,
+              private _upload: SubirImagenService,
+              ) {
 
 
   }
@@ -74,5 +83,18 @@ export class NoticiasAdminComponent implements OnInit {
     return (obj.getSeconds() < 10 ? '0' : '') + obj.getSeconds();
   }
 
+  onSubirFoto( imagen ){
 
+
+
+    if ( imagen ) {
+      this.labelfoto = imagen.target.value.replace(/^.*[\\\/]/, '');
+    }
+
+      this._upload.upload(imagen, this.labelfoto);
+
+
+  }
 }
+
+// .replace(/^.*[\\\/]/, '');
