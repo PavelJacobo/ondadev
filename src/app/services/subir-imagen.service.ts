@@ -15,6 +15,8 @@ export class SubirImagenService {
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
   private CARPETA_IMAGENES = 'img/';
+  private url: string;
+  private nombre: string;
 
   constructor(private storage: AngularFireStorage,
             private db: AngularFirestore) { }
@@ -22,7 +24,7 @@ export class SubirImagenService {
 
   upload ( imagen, nombre ) {
 
-
+      this.nombre = nombre;
       const file = imagen.target.files[0];
       const filePath = `${ this.CARPETA_IMAGENES}/${ nombre }`;
       const  fileRef = this.storage.ref(filePath);
@@ -31,8 +33,14 @@ export class SubirImagenService {
       task.snapshotChanges().pipe( finalize(() => {
 
                           this.downloadURL = fileRef.getDownloadURL() ;
-                          this.downloadURL.subscribe((data)=>{ console.log(data)});
-
+                          this.downloadURL.subscribe((data) => {
+                            this.url = data;
+                            console.log (data);
+                            this.guardarImagen({
+                              nombre: this.nombre,
+                              url: this.url
+                            });
+                           } );
                         })).subscribe();
 
 

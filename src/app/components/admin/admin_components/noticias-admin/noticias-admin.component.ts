@@ -19,20 +19,20 @@ import { Observable } from '@firebase/util';
 export class NoticiasAdminComponent implements OnInit {
 
 
-  public nombreUsuario:string;
-  public idUsuario:string;
-  public imagen:string;
-  public contenido:string;
-  public titulo:string;
-  public labelfoto:string = 'Subir Imagen';
-
+  public nombreUsuario: string;
+  public idUsuario :string;
+  public imagen: string;
+  public contenido: string;
+  public titulo: string;
+  public labelfoto: string;
+  public id_foto;
   noticia: Noticias = {
     id: '',
     titulo: '',
     contenido: '',
     nombreUsuario: '',
     idUsuario: '',
-    imagen:'',
+    imagen: '',
     fecha: null
   }
 
@@ -42,7 +42,8 @@ export class NoticiasAdminComponent implements OnInit {
               private _upload: SubirImagenService,
               ) {
 
-
+          this.labelfoto = 'Subir Imagen';
+          
   }
 
   ngOnInit() {
@@ -75,23 +76,23 @@ export class NoticiasAdminComponent implements OnInit {
 
   }
 
-  getMinutesWithZero(obj){
+  getMinutesWithZero(obj) {
     return (obj.getMinutes() < 10 ? '0' : '') + obj.getMinutes();
   }
 
-  getSecundesWithZero(obj){
+  getSecundesWithZero(obj) {
     return (obj.getSeconds() < 10 ? '0' : '') + obj.getSeconds();
   }
 
-  onSubirFoto( imagen ){
-
+  onSubirFoto( imagen ) {
 
 
     if ( imagen ) {
       this.labelfoto = imagen.target.value.replace(/^.*[\\\/]/, '');
+      this.id_foto = `_${this.nombreUsuario}_${this.idUsuario}_${this.labelfoto}`;
     }
 
-      this._upload.upload(imagen, this.labelfoto);
+      this._upload.upload(imagen, this.id_foto);
 
 
   }
