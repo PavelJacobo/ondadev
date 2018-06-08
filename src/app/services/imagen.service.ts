@@ -10,23 +10,23 @@ import { Observable } from 'rxjs/internal/Observable';
 @Injectable({
   providedIn: 'root'
 })
-export class SubirImagenService {
+export class ImagenService {
 
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
-  private CARPETA_IMAGENES = 'img/';
-  private url: string;
+  private CARPETA_IMAGENES_TEMP = 'tmp/';
+  public url: string;
   private nombre: string;
 
   constructor(private storage: AngularFireStorage,
             private db: AngularFirestore) { }
 
 
-  upload ( imagen, nombre ) {
+  uploadImage ( imagen, nombre ) {
 
       this.nombre = nombre;
       const file = imagen.target.files[0];
-      const filePath = `${ this.CARPETA_IMAGENES}/${ nombre }`;
+      const filePath = `${ this.CARPETA_IMAGENES_TEMP}/${ nombre }`;
       const  fileRef = this.storage.ref(filePath);
       const task =  fileRef.put(file);
       this.uploadPercent = task.percentageChanges();
@@ -48,8 +48,22 @@ export class SubirImagenService {
   }
 
 
+  deleteImage(imagen) {
+    const storageRef = firebase.storage().ref();
+    const desertRef = storageRef.child(`tmp/${ imagen}` );
+    desertRef.delete().then(() => {
+        console.log('Archivo Eliminado');
+    }).catch((err) =>  console.log(err.message));
+    this.uploadPercent = undefined;
+    this.downloadURL = null;
+
+  }
+
+
+
+
   private guardarImagen( imagen: { nombre: string, url: string} ) {
-    this.db.collection(`/${ this.CARPETA_IMAGENES }`)
+    this.db.collection(`/${ this.CARPETA_IMAGENES_TEMP }`)
            .add(imagen);
   }
 }

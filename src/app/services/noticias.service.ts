@@ -20,14 +20,14 @@ export class NoticiasService {
    }
 
 
-    addNoticia(noticia: Noticias){
-        this.noticiasCollection.add(noticia).then((res)=>{
+    addNoticia(noticia: Noticias) {
+        this.noticiasCollection.add(noticia).then((res) => {
           console.log(res);
-        }).catch(err=>console.log(err));
+        }).catch(err => console.log(err));
     }
 
 
-    getNoticias():Observable<Noticias[]>{
+    getNoticias(): Observable<Noticias[]>{
         this.noticias = this.noticiasCollection.snapshotChanges()
                                                .pipe(map(changes => {
                                                  return changes.map(action => {

@@ -1,8 +1,17 @@
-.progress-bar{
-  width: 100%;
-
+.progress-bar {
+    width: 100%;
 }
-.ok-check{
-  color: green;
-  float: right;
+
+.ok-check {
+    color: green;
+    float: right;
+}
+
+.eliminar-imagen {
+    color: red;
+    float: right;
+    position: absolute;
+    right: 5px;
+    font-size: 30px;
+    cursor: pointer;
 }

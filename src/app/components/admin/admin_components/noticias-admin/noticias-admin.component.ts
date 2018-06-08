@@ -3,7 +3,7 @@ import { AuthService } from '../../../../services/auth.service';
 import { NoticiasService } from '../../../../services/noticias.service';
 import { Noticias } from '../../../../models/noticias';
 import { Router } from '@angular/router';
-import { SubirImagenService } from '../../../../services/subir-imagen.service';
+import { ImagenService } from '../../../../services/imagen.service';
 //
 import * as firebase from 'firebase';
 import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from 'angularfire2/storage';
@@ -20,8 +20,8 @@ export class NoticiasAdminComponent implements OnInit {
 
 
   public nombreUsuario: string;
-  public idUsuario :string;
-  public imagen: string;
+  public idUsuario: string;
+  public imagen: any;
   public contenido: string;
   public titulo: string;
   public labelfoto: string;
@@ -34,22 +34,22 @@ export class NoticiasAdminComponent implements OnInit {
     idUsuario: '',
     imagen: '',
     fecha: null
-  }
+  };
 
-  constructor(private _authService:AuthService,
+  constructor(private _authService: AuthService,
               private _noticiasService: NoticiasService,
               private _router: Router,
-              private _upload: SubirImagenService,
+              private _imageService: ImagenService,
               ) {
 
           this.labelfoto = 'Subir Imagen';
-          
+
   }
 
   ngOnInit() {
 
-    this._authService.getAuth().subscribe( auth =>{
-      if(auth){
+    this._authService.getAuth().subscribe( auth => {
+      if ( auth ) {
 
          this.nombreUsuario = auth.displayName;
          this.idUsuario = auth.uid;
@@ -59,29 +59,38 @@ export class NoticiasAdminComponent implements OnInit {
 
 
   }
-  addNoticia({value}: {value: Noticias}){
-    console.log(value);
-    /* let obj = new Date();
-    let objA = obj.getUTCFullYear();
-    let objM = obj.getUTCMonth();
-    let objD = obj.getUTCDate();
-    let objH = obj.getUTCHours();
-    let objMn = this.getMinutesWithZero(obj);
-    let objS = this.getSecundesWithZero(obj);
-    value.id_content = Number(`${objA}${objM}${objD}${objH}${objMn}${objS}`);
-    value.fecha = new Date().toString();
-
-    this._noticiasService.addNoticia(value);
-    this._router.navigate(['/home']); */
+  addNoticia({value}: {value: Noticias}) {
+    
+     const obj = new Date();
+     const objA = obj.getUTCFullYear();
+     const objM = this.getMonthWithZero(obj);
+     const objD = this.getDateWithZero(obj);
+     const objH = this.getHoursWithZero(obj);
+     const objMn = this.getMinutesWithZero(obj);
+     const objS = this.getSecundesWithZero(obj);
+     value.id_content = Number(`${objA}${objM}${objD}${objH}${objMn}${objS}`);
+     value.fecha = new Date().toString();
+     value.imagen = this._imageService.url;
+     console.log(value.id_content);
+     this._noticiasService.addNoticia(value);
+     this._router.navigate(['/home']);
 
   }
 
+  getHoursWithZero(obj) {
+    return (obj.getUTCHours() < 10 ? '0' : '') + obj.getUTCHours();
+  }
   getMinutesWithZero(obj) {
     return (obj.getMinutes() < 10 ? '0' : '') + obj.getMinutes();
   }
-
   getSecundesWithZero(obj) {
     return (obj.getSeconds() < 10 ? '0' : '') + obj.getSeconds();
+  }
+  getDateWithZero(obj) {
+    return (obj.getUTCDate() < 10 ? '0' : '') + obj.getUTCDate();
+  }
+  getMonthWithZero(obj) {
+    return (obj.getUTCMonth() < 10 ? '0' : '') + obj.getUTCMonth();
   }
 
   onSubirFoto( imagen ) {
@@ -92,9 +101,14 @@ export class NoticiasAdminComponent implements OnInit {
       this.id_foto = `_${this.nombreUsuario}_${this.idUsuario}_${this.labelfoto}`;
     }
 
-      this._upload.upload(imagen, this.id_foto);
+      this._imageService.uploadImage(imagen, this.id_foto);
 
 
+  }
+
+  deleteImagen(id_imagen: string) {
+    id_imagen = this.id_foto;
+    this._imageService.deleteImage(id_imagen);
   }
 }
 

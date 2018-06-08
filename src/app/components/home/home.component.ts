@@ -11,21 +11,20 @@ import { Noticias } from '../../models/noticias';
 })
 export class HomeComponent implements OnInit {
 
-  public noticias:Noticias[];
+  public noticias: Noticias[];
   constructor( private _noticiasService: NoticiasService) { }
 
   ngOnInit() {
 
-    this._noticiasService.getNoticias().subscribe((res)=>{
+    this._noticiasService.getNoticias().subscribe((res) => {
       console.log(res);
-      this.noticias = res.sort((a,b)=>{
+      this.noticias = res.sort((a, b) => {
         return a.id_content - b.id_content;
       });
 
-      console.log("SUPUESTAMENTEO ORDENADO", this.noticias);
+      console.log('SUPUESTAMENTEO ORDENADO', this.noticias);
     });
 
-    
   }
 
 }
