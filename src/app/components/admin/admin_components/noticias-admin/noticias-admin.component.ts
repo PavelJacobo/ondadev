@@ -60,7 +60,7 @@ export class NoticiasAdminComponent implements OnInit {
 
   }
   addNoticia({value}: {value: Noticias}) {
-    
+
      const obj = new Date();
      const objA = obj.getUTCFullYear();
      const objM = this.getMonthWithZero(obj);
@@ -71,6 +71,7 @@ export class NoticiasAdminComponent implements OnInit {
      value.id_content = Number(`${objA}${objM}${objD}${objH}${objMn}${objS}`);
      value.fecha = new Date().toString();
      value.imagen = this._imageService.url;
+     value.nombre_imagen = this._imageService.nombre;
      console.log(value.id_content);
      this._noticiasService.addNoticia(value);
      this._router.navigate(['/home']);

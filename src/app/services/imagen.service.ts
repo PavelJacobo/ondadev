@@ -14,9 +14,9 @@ export class ImagenService {
 
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
-  private CARPETA_IMAGENES_TEMP = 'tmp/';
+  private CARPETA_IMAGENES = 'img/';
   public url: string;
-  private nombre: string;
+  public nombre: string;
 
   constructor(private storage: AngularFireStorage,
             private db: AngularFirestore) { }
@@ -26,7 +26,7 @@ export class ImagenService {
 
       this.nombre = nombre;
       const file = imagen.target.files[0];
-      const filePath = `${ this.CARPETA_IMAGENES_TEMP}/${ nombre }`;
+      const filePath = `${ this.CARPETA_IMAGENES}/${ nombre }`;
       const  fileRef = this.storage.ref(filePath);
       const task =  fileRef.put(file);
       this.uploadPercent = task.percentageChanges();
@@ -50,7 +50,7 @@ export class ImagenService {
 
   deleteImage(imagen) {
     const storageRef = firebase.storage().ref();
-    const desertRef = storageRef.child(`tmp/${ imagen}` );
+    const desertRef = storageRef.child( `img/${ imagen}` );
     desertRef.delete().then(() => {
         console.log('Archivo Eliminado');
     }).catch((err) =>  console.log(err.message));
@@ -63,7 +63,7 @@ export class ImagenService {
 
 
   private guardarImagen( imagen: { nombre: string, url: string} ) {
-    this.db.collection(`/${ this.CARPETA_IMAGENES_TEMP }`)
+    this.db.collection(`/${ this.CARPETA_IMAGENES }`)
            .add(imagen);
   }
 }

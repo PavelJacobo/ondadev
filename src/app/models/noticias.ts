@@ -6,6 +6,7 @@ export interface Noticias {
   titulo: string;
   contenido: string;
   imagen?: string;
+  nombre_imagen?: string;
   fecha?: any;
   id_content?: number;
 

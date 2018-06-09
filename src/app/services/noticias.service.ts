@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Noticias } from '../models/noticias';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument} from 'angularfire2/firestore';
-import { Observable } from "rxjs/Observable";
+import { Observable } from 'rxjs/Observable';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -12,6 +12,8 @@ export class NoticiasService {
   public noticiaDoc: AngularFirestoreDocument<Noticias>;
   public noticias: Observable<Noticias[]>;
   public noticia: Observable<Noticias>;
+
+
 
   constructor(private _afs: AngularFirestore) {
 
@@ -27,24 +29,26 @@ export class NoticiasService {
     }
 
 
-    getNoticias(): Observable<Noticias[]>{
+    getNoticias(): Observable<Noticias[]> {
         this.noticias = this.noticiasCollection.snapshotChanges()
                                                .pipe(map(changes => {
                                                  return changes.map(action => {
                                                    const data = action.payload.doc.data() as Noticias;
                                                    data.id = action.payload.doc.id;
+                                                   console.log ( data );
                                                    return data;
                                                  });
                                                }));
        return this.noticias;
     }
 
-    getNoticia(idNoticia:string){
+    getNoticia(idNoticia: string) {
         this.noticiaDoc = this._afs.doc<Noticias>(`noticias/${idNoticia}`);
         this.noticia = this.noticiaDoc.snapshotChanges().pipe(map(action => {
-          if(action.payload.exists === false){
+          if (action.payload.exists === false) {
+            console.log ( 'KK DE VACA ');
             return null;
-          }else{
+          } else {
             const data = action.payload.data() as Noticias;
             data.id = action.payload.id;
             return data;
@@ -53,12 +57,12 @@ export class NoticiasService {
         return this.noticia;
     }
 
-    updateNoticia(noticia:Noticias){
+    updateNoticia(noticia: Noticias) {
           this.noticiaDoc = this._afs.doc(`noticias/${noticia.id}`);
           this.noticiaDoc.update(noticia);
     }
 
-    deleteNoticia(noticia: Noticias){
+    deleteNoticia(noticia: Noticias) {
           this.noticiaDoc = this._afs.doc(`noticias/${noticia.id}`);
           this.noticiaDoc.delete();
     }

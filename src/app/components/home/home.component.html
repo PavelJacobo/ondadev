@@ -1,12 +1,12 @@
 <div class="row" *ngIf="noticias">
     <div class="col-md-8">
-        <div class="card bg-dark text-white">
+        <div class="card bg-dark text-white" [routerLink]="['/detalle', noticias[noticias.length - 1].id ]">
             <img class="card-img" [src]="noticias[noticias.length - 1].imagen | noimage" alt="Card image">
-            <div class="card-img-overlay">
+            <div class="card-img-overlay pointer">
                 <h5 class="card-title">{{ noticias[noticias.length - 1].titulo }}</h5>
                 <p class="card-text">{{ noticias[noticias.length - 1].contenido | slice:0:200 }}</p>
                 <p class="card-text text-right text-fecha">{{ noticias[noticias.length - 1].fecha | date }}</p>
-                <span class="badge badge-pill badge-danger pull-left text-editar"> Editar</span>
+                <p class="text-right">{{ noticias[noticias.length - 1].nombreUsuario }}</p>
             </div>
         </div>
     </div>
@@ -18,8 +18,7 @@
                     <h5 class="card-title">{{ noticia.titulo}}</h5>
                     <p class="card-text">{{ noticia.contenido | slice:0:200 }}...</p>
                     <p><small class="text-muted">{{noticia.nombreUsuario}}</small></p>
-                    <span class="badge badge-pill badge-success pull-right"> + Info</span>
-                    <span class="badge badge-pill badge-danger pull-right mr-2"> Editar</span>
+                    <span [routerLink]="['/detalle', noticia.id ]" class="badge badge-pill badge-success pull-right pointer"> + Info</span>
                 </div>
             </div>
         </div>
