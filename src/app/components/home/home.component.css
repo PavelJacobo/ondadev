@@ -8,3 +8,10 @@
     bottom: 10px;
     right: 10px;
 }
+
+.text-editar {
+    position: absolute;
+    bottom: 15px;
+    left: 10px;
+    font-size: 20px;
+}
