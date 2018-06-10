@@ -21,11 +21,8 @@ export class NoticiasAdminComponent implements OnInit {
 
   public nombreUsuario: string;
   public idUsuario: string;
-  public imagen: any;
-  public contenido: string;
-  public titulo: string;
   public labelfoto: string;
-  public id_foto;
+  public id_foto: string;
   noticia: Noticias = {
     id: '',
     titulo: '',
@@ -33,6 +30,7 @@ export class NoticiasAdminComponent implements OnInit {
     nombreUsuario: '',
     idUsuario: '',
     imagen: '',
+    nombre_imagen: '',
     fecha: null
   };
 
@@ -47,6 +45,8 @@ export class NoticiasAdminComponent implements OnInit {
   }
 
   ngOnInit() {
+
+
 
     this._authService.getAuth().subscribe( auth => {
       if ( auth ) {
@@ -72,9 +72,10 @@ export class NoticiasAdminComponent implements OnInit {
      value.fecha = new Date().toString();
      value.imagen = this._imageService.url;
      value.nombre_imagen = this._imageService.nombre;
-     console.log(value.id_content);
+     console.log(value);
      this._noticiasService.addNoticia(value);
      this._router.navigate(['/home']);
+     this._imageService.url = '';
 
   }
 
@@ -108,8 +109,16 @@ export class NoticiasAdminComponent implements OnInit {
   }
 
   deleteImagen(id_imagen: string) {
-    id_imagen = this.id_foto;
-    this._imageService.deleteImage(id_imagen);
+    if(confirm('Estás seguro que deseas eliminar la imagen?')) {
+      id_imagen = this.id_foto;
+      this._imageService.deleteImage(id_imagen);
+
+      this._imageService.url = '';
+      this._imageService.nombre = '';
+      this.labelfoto = '';
+    }
+
+
   }
 }
 

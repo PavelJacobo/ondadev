@@ -43,10 +43,13 @@ export class DetalleComponent implements OnInit {
     this.idNoticia = this.activateRoute.snapshot.params['id'];
     console.log('PARAMETRO ', this.idNoticia);
     this._noticiaService.getNoticia(this.idNoticia).subscribe(noticia => {
-      this.noticia = noticia;
-      if ( this.idUserlogged === this.noticia.idUsuario) {
-          this.isOwner = true;
-      }
+      if (noticia){
+
+          this.noticia = noticia;
+          if ( this.idUserlogged === this.noticia.idUsuario) {
+              this.isOwner = true;
+          }
+    }
     });
   }
 
@@ -54,6 +57,7 @@ export class DetalleComponent implements OnInit {
         if (confirm('Estás Seguro')) {
           this._noticiaService.deleteNoticia(this.noticia);
           this.imageService.deleteImage(this.noticia.nombre_imagen);
+          this.router.navigate(['/home']);
         }
   }
 

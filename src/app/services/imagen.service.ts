@@ -12,8 +12,8 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class ImagenService {
 
-  uploadPercent: Observable<number>;
-  downloadURL: Observable<string>;
+  public uploadPercent: Observable<number>;
+  public downloadURL: Observable<string>;
   private CARPETA_IMAGENES = 'img/';
   public url: string;
   public nombre: string;
@@ -39,7 +39,7 @@ export class ImagenService {
                             this.guardarImagen({
                               nombre: this.nombre,
                               url: this.url
-                            });
+                              });
                            } );
                         })).subscribe();
 

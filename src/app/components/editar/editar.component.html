@@ -1,7 +1,7 @@
-<div class="container main-container">
+<div class="container main-container" *ngIf="noticia">
     <div class="row">
         <div class="col-md-6">
-            <a href="" class="btn btn-link">
+            <a routerLink="/detalle/{{ noticia?.id }}" class="btn btn-link">
                 <i class="fa fa-arrow-circle-o-left"></i>Volver
             </a>
 
@@ -11,42 +11,51 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-10 mx-auto mt-2">
+        <div class="col-md-6 mx-auto mt-2">
             <div class="card">
                 <div class="card-header">Editar Evento</div>
                 <div class="card-body">
-                    <form>
+                    <form #formNoticia="ngForm" (submit)="updateNoticia(formNoticia)">
 
                         <div class="form-group">
                             <label for="titulo">Titulo</label>
-                            <input type="text" name="titulo" id="titulo" class="form-control">
+                            <input [(ngModel)]="noticia.titulo" type="text" name="titulo" id="titulo" class="form-control" >
                         </div>
 
                         <div class="form-group">
                             <label for="contenido">contenido</label>
-                            <textarea type="text" name="contenido" id="contenido" class="form-control"></textarea>
+                            <textarea [(ngModel)]="noticia.contenido" type="text" name="contenido" id="contenido" class="form-control"></textarea>
                         </div>
                         <div class="row">
                             <div class="form-group col-md-6 ">
-                                <label for="autor">Creado Por</label>
-                                <input type="text" name="autor" id="autor" [value]="nombreUsuario" class="form-control" disabled>
+                                <label for="nombreUsuario">Creado Por</label>
+                                <input [(ngModel)]="noticia.nombreUsuario" type="text" name="nombreUsuario" class="form-control" readonly>
                             </div>
-                            <div class="form-group col-md-6 ">
-                                <label for="file" class="custom-file-upload">Cargar imagen
-                  <input type="file" name="file" class="form-control">
-                </label>
+                            <div class="form-group col-md-6">
+                                <label for="id_usuario">Imagen</label>
+                                <div class="custom-file">
+                                    <input [(ngModel)]="imagen" (change)="onSubirFoto($event)" type="file" class="custom-file-input" name="imagen" accept="image/*">
+                                    <label class="custom-file-label">{{ labelfoto }}</label>
+                                </div>
                             </div>
+                            <div class="col-md-5 ml-auto mb-2">
+                                <progress max="100" [value]="( _imageService.uploadPercent | async)" class="progress-bar"></progress>
+                            </div>
+                            <div class="col-md-1">
+                                <i *ngIf="_imageService.uploadPercent | async" class="fa fa-check ok-check text-right"></i>
+                            </div>
+
                         </div>
                         <div class="form-group col-md-12 d-none">
                             <label for="id_usuario"></label>
-                            <input type="text" name="autor" id="id_usuario" class="form-control" [value]="idUsuario">
+                            <input [(ngModel)]="noticia.idUsuario" type="text" name="idUsuario" id="idUsuario" class="form-control" >
                         </div>
                         <div class="row text-center justify-content-around">
-                            <div class="form-group  ">
+                            <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                             <div class="form-group text-center">
-                                <button type="submit" class="btn btn-warning">Cancelar</button>
+                                <button type="" class="btn btn-warning">Cancelar</button>
                             </div>
                         </div>
 
@@ -55,7 +64,16 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6 mx-auto mt-2">
+            <div class="card">
+                <i (click)="deleteImagen()" class="fa fa-window-close eliminar-imagen text-right" aria-hidden="true"></i>
+                <img class="card-img-top" [src]=" _imageService.url || noticia.imagen ">
+                <div class="card-body">
+                    <h5 class="card-title">{{ noticia.titulo }}</h5>
+                    <p class="card-text">{{ noticia.contenido }}</p>
+                    <p class="card-text"><small class="text-muted">{{ noticia.nombreUsuario }}</small></p>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
-{{ idNoticia }}

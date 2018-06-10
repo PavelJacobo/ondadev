@@ -1,12 +1,12 @@
 <div class="row" *ngIf="noticias">
-    <div class="col-md-8">
-        <div class="card bg-dark text-white" [routerLink]="['/detalle', noticias[noticias.length - 1].id ]">
-            <img class="card-img" [src]="noticias[noticias.length - 1].imagen | noimage" alt="Card image">
+    <div class="col-md-8" *ngIf="noticias.length > 0">
+        <div class="card bg-dark text-white" [routerLink]="['/detalle', noticias[noticias.length - 1]?.id ]">
+            <img class="card-img" [src]="noticias[noticias.length - 1]?.imagen | noimage" alt="Card image">
             <div class="card-img-overlay pointer">
-                <h5 class="card-title">{{ noticias[noticias.length - 1].titulo }}</h5>
-                <p class="card-text">{{ noticias[noticias.length - 1].contenido | slice:0:200 }}</p>
-                <p class="card-text text-right text-fecha">{{ noticias[noticias.length - 1].fecha | date }}</p>
-                <p class="text-right">{{ noticias[noticias.length - 1].nombreUsuario }}</p>
+                <h5 class="card-title">{{ noticias[noticias.length - 1]?.titulo }}</h5>
+                <p class="card-text">{{ noticias[noticias.length - 1]?.contenido | slice:0:200 }}</p>
+                <p class="card-text text-right text-fecha">{{ noticias[noticias.length - 1]?.fecha | date }}</p>
+                <p class="text-right">{{ noticias[noticias.length - 1]?.nombreUsuario }}</p>
             </div>
         </div>
     </div>
