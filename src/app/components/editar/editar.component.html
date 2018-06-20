@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">Editar Evento</div>
                 <div class="card-body">
-                    <form #formNoticia="ngForm" (submit)="updateNoticia(formNoticia)">
+                    <form #formNoticia="ngForm" (submit)="updateNoticia(formNoticia)" novalidate >
 
                         <div class="form-group">
                             <label for="titulo">Titulo</label>
@@ -55,7 +55,7 @@
                                 <button type="submit" class="btn btn-primary">Guardar</button>
                             </div>
                             <div class="form-group text-center">
-                                <button type="" class="btn btn-warning">Cancelar</button>
+                                <button (click)="confirmarCancelar($event)" class="btn btn-warning">Cancelar</button>
                             </div>
                         </div>
 
@@ -67,7 +67,7 @@
         <div class="col-md-6 mx-auto mt-2">
             <div class="card">
                 <i (click)="deleteImagen()" class="fa fa-window-close eliminar-imagen text-right" aria-hidden="true"></i>
-                <img class="card-img-top" [src]=" _imageService.url || noticia.imagen ">
+                <img class="card-img-top" [src]=" noticia.imagen | noimage ">
                 <div class="card-body">
                     <h5 class="card-title">{{ noticia.titulo }}</h5>
                     <p class="card-text">{{ noticia.contenido }}</p>

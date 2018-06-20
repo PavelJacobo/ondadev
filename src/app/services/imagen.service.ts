@@ -24,24 +24,33 @@ export class ImagenService {
 
   uploadImage ( imagen, nombre ) {
 
-      this.nombre = nombre;
-      const file = imagen.target.files[0];
-      const filePath = `${ this.CARPETA_IMAGENES}/${ nombre }`;
-      const  fileRef = this.storage.ref(filePath);
-      const task =  fileRef.put(file);
-      this.uploadPercent = task.percentageChanges();
-      task.snapshotChanges().pipe( finalize(() => {
 
-                          this.downloadURL = fileRef.getDownloadURL() ;
-                          this.downloadURL.subscribe((data) => {
-                            this.url = data;
-                            console.log (data);
-                            this.guardarImagen({
-                              nombre: this.nombre,
-                              url: this.url
-                              });
-                           } );
-                        })).subscribe();
+      return new Promise((resolve,reject) => {
+        this.nombre = nombre;
+        const file = imagen.target.files[0];
+        const filePath = `${ this.CARPETA_IMAGENES}/${ nombre }`;
+        const  fileRef = this.storage.ref(filePath);
+        const task =  fileRef.put(file);
+        this.uploadPercent = task.percentageChanges();
+        task.snapshotChanges().pipe( finalize(() => {
+
+                            this.downloadURL = fileRef.getDownloadURL() ;
+                            this.downloadURL.subscribe((data) => {
+                              this.url = data;
+                              console.log ('EL DATO ES: ', data);
+                              resolve(this.url);
+                              this.guardarImagen({
+                                nombre: this.nombre,
+                                url: this.url
+                                });
+                             });
+                           })).subscribe();
+      });
+
+
+
+
+
 
 
 

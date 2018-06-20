@@ -1,6 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+// Calendar module
+
+import { CalendarModule } from 'angular-calendar';
+import { CalendarHeaderComponent } from 'src/app/utils/utils.calendar-header';
+import { CalendarDatePipe } from 'angular-calendar/modules/common/calendar-date.pipe.d';
+
 
 //FIREBASE modules
 
@@ -34,6 +40,7 @@ import { DetalleComponent } from './components/detalle/detalle.component';
 import { EditarComponent } from './components/editar/editar.component';
 import { NoimagePipe } from './pipes/noimage.pipe';
 import { AngularFireStorageModule } from 'angularfire2/storage';
+import { OcupacionLocalAdminComponent } from './components/admin/admin_components/ocupacion-local-admin/ocupacion-local-admin.component';
 
 
 @NgModule({
@@ -49,7 +56,10 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
     ProgramacionAdminComponent,
     DetalleComponent,
     EditarComponent,
-    NoimagePipe
+    NoimagePipe,
+    CalendarHeaderComponent,
+    OcupacionLocalAdminComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -58,6 +68,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
+    CalendarModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [ ],

@@ -77,6 +77,7 @@ export class NoticiasAdminComponent implements OnInit {
      this._router.navigate(['/home']);
      this._imageService.url = '';
 
+
   }
 
   getHoursWithZero(obj) {
@@ -103,15 +104,16 @@ export class NoticiasAdminComponent implements OnInit {
       this.id_foto = `_${this.nombreUsuario}_${this.idUsuario}_${this.labelfoto}`;
     }
 
-      this._imageService.uploadImage(imagen, this.id_foto);
+      this._imageService.uploadImage(imagen, this.id_foto).then((data: any)=>{this.noticia.imagen = data}).catch((err)=>console.error(err));;
 
 
   }
 
-  deleteImagen(id_imagen: string) {
-    if(confirm('Estás seguro que deseas eliminar la imagen?')) {
-      id_imagen = this.id_foto;
-      this._imageService.deleteImage(id_imagen);
+  deleteImagen( conf?: boolean ) {
+
+   if ( conf || confirm('Estás seguro que deseas eliminar la imagen?')) {
+
+      this._imageService.deleteImage(this.id_foto);
 
       this._imageService.url = '';
       this._imageService.nombre = '';
@@ -119,6 +121,19 @@ export class NoticiasAdminComponent implements OnInit {
     }
 
 
+  }
+
+  confirmarCancelar(event, id_imagen) {
+    let conf = true;
+    if(confirm('¿Estás Seguro?, Los cambios realizados se perderan!')) {
+      console.log('Eliminado');
+      this.deleteImagen( conf );
+      this._router.navigate(['/home']);
+      event.preventDefault();
+    } else {
+      console.log( ' Lo Cancelaste');
+      event.preventDefault();
+    }
   }
 }
 

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CalendarHeaderComponent } from 'src/app/utils/utils.calendar-header';
+
+
 
 @Component({
   selector: 'app-programacion-admin',
@@ -6,6 +9,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./programacion-admin.component.css']
 })
 export class ProgramacionAdminComponent implements OnInit {
+
+  viewDate: Date = new Date();
+  events = [];
 
   constructor() { }
 

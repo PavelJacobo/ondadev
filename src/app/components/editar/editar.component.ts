@@ -57,12 +57,10 @@ export class EditarComponent implements OnInit {
 
   updateNoticia({value}:{value: Noticias}){
           value.id = this.idNoticia;
-          value.imagen = this._imageService.url;
-          value.fecha = new Date().toString();
+          value.imagen = this.noticia.imagen;
           console.log(value);
           this._noticiaService.updateNoticia(value);
           this._router.navigate(['/detalle/'+this.idNoticia]);
-          this._imageService.url = '';
   }
 
   deleteImagen(id_imagen) {
@@ -71,7 +69,7 @@ export class EditarComponent implements OnInit {
       id_imagen = this.noticia.nombre_imagen;
       this._imageService.deleteImage(id_imagen);
       this.noticia.imagen = '';
-      this._imageService.url = '';
+
     }
 
 
@@ -85,8 +83,14 @@ export class EditarComponent implements OnInit {
       this.id_foto = `_${this.noticia.nombreUsuario}_${this.noticia.idUsuario}_${this.labelfoto}`;
     }
 
-      this._imageService.uploadImage(imagen, this.id_foto);
+      this._imageService.uploadImage(imagen, this.id_foto).then((data: any)=>{this.noticia.imagen = data}).catch((err)=>console.error(err));
 
-  }
+    }
 
+    confirmarCancelar(event) {
+      if(confirm('¿Estás Seguro? Los cambios no se ejecutarán salvo que hayas eliminado la imagen, en ese caso deberás subirla otra vez')){
+        this._router.navigate(['/home']);
+      }
+      event.preventDefault();
+    }
 }
