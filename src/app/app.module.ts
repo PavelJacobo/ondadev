@@ -1,14 +1,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-// Calendar module
-
-import { CalendarModule } from 'angular-calendar';
-import { CalendarHeaderComponent } from 'src/app/utils/utils.calendar-header';
-import { CalendarDatePipe } from 'angular-calendar/modules/common/calendar-date.pipe.d';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
 
 
-//FIREBASE modules
+// date picker ngbDatepicker
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+// // Calendar module
+// import localeEs from '@angular/common/locales/es';
+// import { CalendarModule } from 'angular-calendar';
+// import { CalendarHeaderComponent } from 'src/app/utils/utils.calendar-header';
+// import { CalendarDatePipe } from 'angular-calendar/modules/common/calendar-date.pipe.d';
+// import {  CustomDateFormatter } from 'src/app/utils/utils.custom.formater-provider';
+// import { registerLocaleData } from '@angular/common';
+// registerLocaleData(localeEs);
+
+// // FullCalendar module
+// import { FullCalendarModule } from 'ng-fullcalendar';
+
+// FIREBASE modules
 
 import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
@@ -41,6 +53,9 @@ import { EditarComponent } from './components/editar/editar.component';
 import { NoimagePipe } from './pipes/noimage.pipe';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { OcupacionLocalAdminComponent } from './components/admin/admin_components/ocupacion-local-admin/ocupacion-local-admin.component';
+import { FullCalendarDirective } from './directives/full-calendar.directive';
+import { EventsmodelDirective } from './directives/eventsmodel.directive';
+
 
 
 @NgModule({
@@ -57,9 +72,11 @@ import { OcupacionLocalAdminComponent } from './components/admin/admin_component
     DetalleComponent,
     EditarComponent,
     NoimagePipe,
-    CalendarHeaderComponent,
+    // CalendarHeaderComponent,
     OcupacionLocalAdminComponent,
-    
+    FullCalendarDirective,
+    EventsmodelDirective
+
   ],
   imports: [
     BrowserModule,
@@ -68,7 +85,12 @@ import { OcupacionLocalAdminComponent } from './components/admin/admin_component
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
-    CalendarModule.forRoot(),
+    // FullCalendarModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgbModule.forRoot(),
+    // CalendarModule.forRoot(),
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [ ],

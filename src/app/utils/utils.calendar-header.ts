@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+import { CalendarAngularDateFormatter } from 'angular-calendar/modules/common';
+import { CustomDateFormatter } from 'src/app/utils/utils.custom.formater-provider';
+import {
+  CalendarEvent,
+  CalendarDateFormatter,
+  DAYS_OF_WEEK
+} from 'angular-calendar';
 
 @Component({
   selector: 'mwl-demo-utils-calendar-header',
@@ -12,14 +19,14 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
             [view]="view"
             [(viewDate)]="viewDate"
             (viewDateChange)="viewDateChange.next(viewDate)">
-            Previous
+            Previo
           </div>
           <div
             class="btn btn-outline-secondary"
             mwlCalendarToday
             [(viewDate)]="viewDate"
             (viewDateChange)="viewDateChange.next(viewDate)">
-            Today
+            Hoy
           </div>
           <div
             class="btn btn-primary"
@@ -27,7 +34,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
             [view]="view"
             [(viewDate)]="viewDate"
             (viewDateChange)="viewDateChange.next(viewDate)">
-            Next
+            Siguiente
           </div>
         </div>
       </div>
@@ -40,34 +47,44 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
             class="btn btn-primary"
             (click)="viewChange.emit('month')"
             [class.active]="view === 'month'">
-            Month
+            Mes
           </div>
           <div
             class="btn btn-primary"
             (click)="viewChange.emit('week')"
             [class.active]="view === 'week'">
-            Week
+            Semana
           </div>
           <div
             class="btn btn-primary"
             (click)="viewChange.emit('day')"
             [class.active]="view === 'day'">
-            Day
+            Día
           </div>
         </div>
       </div>
     </div>
     <br>
-  `
+  `,
+  providers: [
+    {
+      provide: CalendarDateFormatter,
+      useClass: CustomDateFormatter
+    }
+  ]
 })
 export class CalendarHeaderComponent {
   @Input() view: string;
 
   @Input() viewDate: Date;
 
-  @Input() locale: string = 'en';
+  @Input() locale: string = 'fr';
 
   @Output() viewChange: EventEmitter<string> = new EventEmitter();
 
   @Output() viewDateChange: EventEmitter<Date> = new EventEmitter();
+
+  weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
+
+  weekendDays: number[] = [DAYS_OF_WEEK.FRIDAY, DAYS_OF_WEEK.SATURDAY];
 }

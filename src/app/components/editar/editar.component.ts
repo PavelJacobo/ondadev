@@ -46,7 +46,7 @@ export class EditarComponent implements OnInit {
     this.idNoticia = this.activateRoute.snapshot.params['id'];
     console.log('PARAMETRO ', this.idNoticia);
     this._noticiaService.getNoticia(this.idNoticia).subscribe(noticia => {
-      if (noticia){
+      if (noticia) {
 
           this.noticia = noticia;
           this.noticia.imagen = noticia.imagen;
@@ -55,17 +55,17 @@ export class EditarComponent implements OnInit {
     });
   }
 
-  updateNoticia({value}:{value: Noticias}){
+  updateNoticia({value}: {value: Noticias}) {
           value.id = this.idNoticia;
           value.imagen = this.noticia.imagen;
           console.log(value);
           this._noticiaService.updateNoticia(value);
-          this._router.navigate(['/detalle/'+this.idNoticia]);
+          this._router.navigate(['/detalle/' + this.idNoticia]);
   }
 
   deleteImagen(id_imagen) {
 
-    if(confirm('Estás Seguro que deseas eliminar la imagen?')){
+    if (confirm('Estás Seguro que deseas eliminar la imagen?')) {
       id_imagen = this.noticia.nombre_imagen;
       this._imageService.deleteImage(id_imagen);
       this.noticia.imagen = '';
@@ -83,12 +83,15 @@ export class EditarComponent implements OnInit {
       this.id_foto = `_${this.noticia.nombreUsuario}_${this.noticia.idUsuario}_${this.labelfoto}`;
     }
 
-      this._imageService.uploadImage(imagen, this.id_foto).then((data: any)=>{this.noticia.imagen = data}).catch((err)=>console.error(err));
+      this._imageService.uploadImage(imagen, this.id_foto).then((data: any) =>
+      { this.noticia.imagen = data })
+      .catch((err) => console.error(err));
 
     }
 
     confirmarCancelar(event) {
-      if(confirm('¿Estás Seguro? Los cambios no se ejecutarán salvo que hayas eliminado la imagen, en ese caso deberás subirla otra vez')){
+      if (confirm('¿Estás Seguro? Los cambios no se ejecutarán salvo que hayas eliminado la imagen, en ese caso deberás subirla otra vez'))
+      {
         this._router.navigate(['/home']);
       }
       event.preventDefault();

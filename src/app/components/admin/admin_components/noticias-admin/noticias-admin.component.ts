@@ -104,7 +104,7 @@ export class NoticiasAdminComponent implements OnInit {
       this.id_foto = `_${this.nombreUsuario}_${this.idUsuario}_${this.labelfoto}`;
     }
 
-      this._imageService.uploadImage(imagen, this.id_foto).then((data: any)=>{this.noticia.imagen = data}).catch((err)=>console.error(err));;
+this._imageService.uploadImage(imagen, this.id_foto).then((data: any)=>{this.noticia.imagen = data}).catch((err)=>console.error(err));
 
 
   }

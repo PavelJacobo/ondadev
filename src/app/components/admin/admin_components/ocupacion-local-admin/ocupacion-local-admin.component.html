@@ -1,3 +1,113 @@
-<p>
-  ocupacion-local works!
-</p>
+<!-- <div *ngIf="calendarOptions">
+    <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventDrop)="updateEvent($event.detail)"
+        (eventResize)="updateEvent($event.detail)" [(eventsModel)]="events" ></ng-fullcalendar>
+</div> -->
+<div  *ngIf="calendarOptions.events.length > 0">
+<div #fullcalendarRef appFullCalendar [config]="calendarOptions" ></div>
+</div>
+<div class="row">
+  <div class="container main-container">
+    <form #formEvento="ngForm" (submit)="addEvento(formEvento)">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Titulo</th>
+            <th scope="col">Color</th>
+            <th scope="col">Borde</th>
+            <th scope="col">Inicio</th>
+            <th scope="col">Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <div class="form-group">
+                  <input [(ngModel)]="titulo" type="text" name="title" id="titulo" class="form-control">
+              </div>
+            </th>
+            <td>
+              <div class="form-group">
+                <input class="from-control" [(ngModel)]="backgroundColor" name="backgroundColor" type="color" [value]="backgroundColor">
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <input class="from-control" [(ngModel)]="borderColor" name="borderColor" type="color" [value]="borderColor">
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                          name="start" [(ngModel)]="startday" ngbDatepicker  #start="ngbDatepicker">
+                    <div class="input-group-append">
+                     <button class="btn btn-outline-secondary" (click)="start.toggle()" type="button">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                     </button>
+                    </div>
+                    </div>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                          name="end" [(ngModel)]="endday" ngbDatepicker  #end="ngbDatepicker">
+                    <div class="input-group-append">
+                       <button class="btn btn-outline-secondary" (click)="end.toggle()" type="button">
+                         <i class="fa fa-calendar" aria-hidden="true"></i>
+                       </button>
+                    </div>
+                  </div>
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Añadir Evento</button>
+              </div>
+            </td>
+          </tr>
+
+
+        </tbody>
+      </table>
+    </form>
+  </div>
+
+</div>
+
+
+<!-- <div class="crearcalendar">
+  <form #formEvento="ngForm" (submit)="addEvento(formEvento)">
+    <div class="form-group">
+        <label for="titulo">Titulo</label>
+        <input [(ngModel)]="titulo" type="text" name="title" id="titulo" class="form-control">
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                name="start" [(ngModel)]="startday" ngbDatepicker  #start="ngbDatepicker">
+          <div class="input-group-append">
+           <button class="btn btn-outline-secondary" (click)="start.toggle()" type="button">
+             <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+           </button>
+          </div>
+          </div>
+    </div>
+    <div class="form-group">
+        <div class="input-group">
+          <input class="form-control" placeholder="yyyy-mm-dd"
+                name="end" [(ngModel)]="endday" ngbDatepicker  #end="ngbDatepicker">
+          <div class="input-group-append">
+           <button class="btn btn-outline-secondary" (click)="end.toggle()" type="button">
+             <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
+           </button>
+          </div>
+          </div>
+    </div>
+    <div class="form-group">
+        <button type="submit">Añadir Evento</button>
+    </div>
+  </form>
+</div> -->
+<!-- (clickButton)="clickButton($event.detail)"  (eventClick)="eventClick($event.detail)"  -->
