@@ -1,7 +1,3 @@
-<!-- <div *ngIf="calendarOptions">
-    <ng-fullcalendar #ucCalendar [options]="calendarOptions" (eventDrop)="updateEvent($event.detail)"
-        (eventResize)="updateEvent($event.detail)" [(eventsModel)]="events" ></ng-fullcalendar>
-</div> -->
 <div  *ngIf="calendarOptions.events.length > 0">
 <div #fullcalendarRef appFullCalendar [config]="calendarOptions" ></div>
 </div>
@@ -47,6 +43,7 @@
                     </div>
                     </div>
               </div>
+              <ngb-timepicker  name="horaInicio" class="form-control" [(ngModel)]="horaInicio"></ngb-timepicker>
             </td>
             <td>
               <div class="form-group">
@@ -60,6 +57,7 @@
                     </div>
                   </div>
               </div>
+              <ngb-timepicker  name="horaFin" class="form-control" [(ngModel)]="horaFin"></ngb-timepicker>
             </td>
             <td>
               <div class="form-group">
@@ -73,41 +71,4 @@
       </table>
     </form>
   </div>
-
 </div>
-
-
-<!-- <div class="crearcalendar">
-  <form #formEvento="ngForm" (submit)="addEvento(formEvento)">
-    <div class="form-group">
-        <label for="titulo">Titulo</label>
-        <input [(ngModel)]="titulo" type="text" name="title" id="titulo" class="form-control">
-    </div>
-    <div class="form-group">
-        <div class="input-group">
-          <input class="form-control" placeholder="yyyy-mm-dd"
-                name="start" [(ngModel)]="startday" ngbDatepicker  #start="ngbDatepicker">
-          <div class="input-group-append">
-           <button class="btn btn-outline-secondary" (click)="start.toggle()" type="button">
-             <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-           </button>
-          </div>
-          </div>
-    </div>
-    <div class="form-group">
-        <div class="input-group">
-          <input class="form-control" placeholder="yyyy-mm-dd"
-                name="end" [(ngModel)]="endday" ngbDatepicker  #end="ngbDatepicker">
-          <div class="input-group-append">
-           <button class="btn btn-outline-secondary" (click)="end.toggle()" type="button">
-             <img src="img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer;"/>
-           </button>
-          </div>
-          </div>
-    </div>
-    <div class="form-group">
-        <button type="submit">Añadir Evento</button>
-    </div>
-  </form>
-</div> -->
-<!-- (clickButton)="clickButton($event.detail)"  (eventClick)="eventClick($event.detail)"  -->

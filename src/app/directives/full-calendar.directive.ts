@@ -18,7 +18,6 @@ export class FullCalendarDirective implements AfterViewInit {
    ngAfterViewInit() {
 
        $(this.el.nativeElement).fullCalendar(this.config);
-       // $(this.el.nativeElement).fullCalendar('refetchEvents');
    }
 
    renderEvent(event) {

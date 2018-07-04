@@ -1,1 +1,74 @@
+<div  *ngIf="calendarOptions.events.length > 0">
+<div #fullcalendarRef appFullCalendar [config]="calendarOptions" ></div>
+</div>
+<div class="row">
+  <div class="container main-container">
+    <form #formEvento="ngForm" (submit)="addEvento(formEvento)">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">Titulo</th>
+            <th scope="col">Color</th>
+            <th scope="col">Borde</th>
+            <th scope="col">Inicio</th>
+            <th scope="col">Fin</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">
+              <div class="form-group">
+                  <input [(ngModel)]="titulo" type="text" name="title" id="titulo" class="form-control">
+              </div>
+            </th>
+            <td>
+              <div class="form-group">
+                <input class="from-control" [(ngModel)]="backgroundColor" name="backgroundColor" type="color" [value]="backgroundColor">
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                <input class="from-control" [(ngModel)]="borderColor" name="borderColor" type="color" [value]="borderColor">
+              </div>
+            </td>
+            <td>
+              <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                          name="start" [(ngModel)]="startday" ngbDatepicker  #start="ngbDatepicker">
+                    <div class="input-group-append">
+                     <button class="btn btn-outline-secondary" (click)="start.toggle()" type="button">
+                        <i class="fa fa-calendar" aria-hidden="true"></i>
+                     </button>
+                    </div>
+                    </div>
+              </div>
+              <ngb-timepicker  name="horaInicio" class="form-control" [(ngModel)]="horaInicio"></ngb-timepicker>
+            </td>
+            <td>
+              <div class="form-group">
+                  <div class="input-group">
+                    <input class="form-control" placeholder="yyyy-mm-dd"
+                          name="end" [(ngModel)]="endday" ngbDatepicker  #end="ngbDatepicker">
+                    <div class="input-group-append">
+                       <button class="btn btn-outline-secondary" (click)="end.toggle()" type="button">
+                         <i class="fa fa-calendar" aria-hidden="true"></i>
+                       </button>
+                    </div>
+                  </div>
+              </div>
+              <ngb-timepicker  name="horaFin" class="form-control" [(ngModel)]="horaFin"></ngb-timepicker>
+            </td>
+            <td>
+              <div class="form-group">
+                  <button class="btn btn-primary" type="submit">Añadir Evento</button>
+              </div>
+            </td>
+          </tr>
 
+
+        </tbody>
+      </table>
+    </form>
+  </div>
+</div>

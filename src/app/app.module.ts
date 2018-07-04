@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material';
 
 
 // date picker ngbDatepicker
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 // // Calendar module
 // import localeEs from '@angular/common/locales/es';
