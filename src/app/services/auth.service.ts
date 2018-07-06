@@ -11,24 +11,48 @@ export class AuthService {
 
   constructor(public _afAuth: AngularFireAuth) { }
 
-  registerUser(email:string, pass:string){
+  registerUser(object){
+
     return new Promise((resolve,reject)=>{
-      this._afAuth.auth.createUserWithEmailAndPassword(email,pass)
-                       .then(userData => resolve(userData),
-                             err => reject (err));
+     
+        this._afAuth.auth.createUserWithEmailAndPassword(object.email,object.passwd)
+                          .then(
+                            (success)=>{
+                              let user: any = this._afAuth.auth.currentUser;
+                              user.sendEmailVerification().then(
+                                (success) =>{ 
+                                  console.log('Verifica el correo');
+                                  user.updateProfile({
+                                    displayName: object.nombre
+                                  });
+                                }
+
+                              ).catch(err => console.log(err));
+                            }
+                          ).catch((err) => console.log(err));
     });
   }
 
   loginUser(email:string, pass:string){
+    console.log('Llamada a la función del servicio');
     return new Promise((resolve,reject)=>{
+      console.log('Llamada a la promesa');
       this._afAuth.auth.signInWithEmailAndPassword(email,pass)
-                       .then(userData => resolve(userData),
-                             err => reject (err));
+                       .then(userData => {
+                         console.log('Llamada a la respuesta de la promesa nested');
+                         console.log(userData);
+                         if (userData.user.emailVerified){
+                           console.log(' EL EMAIL ESTá a ', userData.user.emailVerified)
+                          resolve(userData);
+                         }
+                       },
+                       err => reject (err));
     });
   }
 
  getAuth(){
-   return this._afAuth.authState.pipe(map(auth => auth))
+
+   return this._afAuth.authState.pipe(map(auth =>auth));
  }
 
 
@@ -46,6 +70,11 @@ export class AuthService {
 
   twitterLogin(){
     return this._afAuth.auth.signInWithPopup( new firebase.auth.TwitterAuthProvider());
+  }
+
+  sendVerification() {
+    let user = this._afAuth.auth.currentUser;
+    user.sendEmailVerification().then((success)=>success, err => err );
   }
 
 }

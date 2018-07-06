@@ -55,6 +55,8 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { OcupacionLocalAdminComponent } from './components/admin/admin_components/ocupacion-local-admin/ocupacion-local-admin.component';
 import { FullCalendarDirective } from './directives/full-calendar.directive';
 import { EventsmodelDirective } from './directives/eventsmodel.directive';
+import { UserProfileComponent } from './components/admin/admin_components/user-profile/user-profile.component';
+import { MiProgramaComponent } from './components/admin/admin_components/mi-programa/mi-programa.component';
 
 
 
@@ -75,7 +77,9 @@ import { EventsmodelDirective } from './directives/eventsmodel.directive';
     // CalendarHeaderComponent,
     OcupacionLocalAdminComponent,
     FullCalendarDirective,
-    EventsmodelDirective
+    EventsmodelDirective,
+    UserProfileComponent,
+    MiProgramaComponent
 
   ],
   imports: [
