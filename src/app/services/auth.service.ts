@@ -3,13 +3,15 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import  * as firebase from "firebase/app";
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(public _afAuth: AngularFireAuth) { }
+  constructor(public _afAuth: AngularFireAuth,
+              public _dbService: DatabaseService) { }
 
   registerUser(object){
 
@@ -24,6 +26,14 @@ export class AuthService {
                                   console.log('Verifica el correo');
                                   user.updateProfile({
                                     displayName: object.nombre
+                                  }).then((success)=>{
+                                    let xyz = {
+                                      nombre: object.nombre,
+                                      email: object.email,
+                                      programa: object.programa,
+                                      id: user.uid
+                                    }
+                                    this._dbService.guardarUsuario(xyz);
                                   });
                                 }
 
@@ -53,6 +63,19 @@ export class AuthService {
  getAuth(){
 
    return this._afAuth.authState.pipe(map(auth =>auth));
+ }
+
+ updateUser(value){
+  let user: any = this._afAuth.auth.currentUser;
+  user.updateProfile({
+    displayName: value.nombre,
+    photoURL: value.imagen
+  }).then((success) => {
+   console.log('Actualización correcta');
+   this._dbService.updateUsuario(value);
+  }).catch(err => console.log(err));
+  console.log(value);
+
  }
 
 

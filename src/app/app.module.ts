@@ -52,11 +52,14 @@ import { DetalleComponent } from './components/detalle/detalle.component';
 import { EditarComponent } from './components/editar/editar.component';
 import { NoimagePipe } from './pipes/noimage.pipe';
 import { AngularFireStorageModule } from 'angularfire2/storage';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { OcupacionLocalAdminComponent } from './components/admin/admin_components/ocupacion-local-admin/ocupacion-local-admin.component';
 import { FullCalendarDirective } from './directives/full-calendar.directive';
 import { EventsmodelDirective } from './directives/eventsmodel.directive';
 import { UserProfileComponent } from './components/admin/admin_components/user-profile/user-profile.component';
 import { MiProgramaComponent } from './components/admin/admin_components/mi-programa/mi-programa.component';
+import { DetailsUploadComponent } from './components/details-upload/details-upload.component';
+import { ListUploadComponent } from './components/list-upload/list-upload.component';
 
 
 
@@ -79,7 +82,9 @@ import { MiProgramaComponent } from './components/admin/admin_components/mi-prog
     FullCalendarDirective,
     EventsmodelDirective,
     UserProfileComponent,
-    MiProgramaComponent
+    MiProgramaComponent,
+    DetailsUploadComponent,
+    ListUploadComponent
 
   ],
   imports: [
@@ -89,6 +94,7 @@ import { MiProgramaComponent } from './components/admin/admin_components/mi-prog
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireStorageModule,
+    AngularFireDatabaseModule,
     // FullCalendarModule,
     MatDatepickerModule,
     MatFormFieldModule,

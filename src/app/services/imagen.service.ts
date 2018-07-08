@@ -18,6 +18,8 @@ export class ImagenService {
   public url: string;
   public nombre: string;
 
+  private userProfileImage = 'userImg/';
+
   constructor(private storage: AngularFireStorage,
             private db: AngularFirestore) { }
 
@@ -59,7 +61,7 @@ export class ImagenService {
 
   deleteImage(imagen) {
     const storageRef = firebase.storage().ref();
-    const desertRef = storageRef.child( `img/${ imagen}` );
+    const desertRef = storageRef.child( `${ this.CARPETA_IMAGENES }/${ imagen}` );
     desertRef.delete().then(() => {
         console.log('Archivo Eliminado');
     }).catch((err) =>  console.log(err.message));
@@ -75,4 +77,61 @@ export class ImagenService {
     this.db.collection(`/${ this.CARPETA_IMAGENES }`)
            .add(imagen);
   }
+
+  // Profile Upload Image
+
+  uploadUserImage ( imagen, nombre ) {
+
+
+    return new Promise((resolve,reject) => {
+      this.nombre = nombre;
+      const file = imagen.target.files[0];
+      const filePath = `${ this.userProfileImage}/${ nombre }`;
+      const  fileRef = this.storage.ref(filePath);
+      const task =  fileRef.put(file);
+      this.uploadPercent = task.percentageChanges();
+      task.snapshotChanges().pipe( finalize(() => {
+
+                          this.downloadURL = fileRef.getDownloadURL() ;
+                          this.downloadURL.subscribe((data) => {
+                            this.url = data;
+                            console.log ('EL DATO ES: ', data);
+                            resolve(this.url);
+                            this.guardarUserImagen({
+                              nombre: this.nombre,
+                              url: this.url
+                              });
+                           });
+                         })).subscribe();
+    });
+
+
+
+
+
+
+
+
+}
+
+
+deleteUserImage(imagen) {
+  const storageRef = firebase.storage().ref();
+  const desertRef = storageRef.child( `${this.userProfileImage}/${ imagen}` );
+  desertRef.delete().then(() => {
+      console.log('Archivo Eliminado');
+  }).catch((err) =>  console.log(err.message));
+  this.uploadPercent = undefined;
+  this.downloadURL = null;
+
+}
+
+
+
+
+private guardarUserImagen( imagen: { nombre: string, url: string} ) {
+  this.db.collection(`/${ this.userProfileImage }`)
+         .add(imagen);
+}
+
 }

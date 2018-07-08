@@ -13,26 +13,53 @@
   <div class="row">
       <div class="col-md-6 mx-auto mt-2">
           <div class="card">
-              <div class="card-header">Bienvenido <strong>{{ nombre }}</strong></div>
+              <div class="card-header">Bienvenido {{ profile?.nombre }}  <strong></strong></div>
               <div class="card-body">
-                  <form>
+                  <form #formUserProfile="ngForm" (submit)="updateUser(formUserProfile)" novalidate>
                       <div class="form-group">
                         <label for="nombre">Nombre</label>
-                        <input type="email" class="form-control" id="nombre" aria-describedby="nameHelp" placeholder="{{ nombre }}">
+                        <input type="email" name="nombre" [(ngModel)]="profile.nombre" class="form-control" id="nombre" aria-describedby="nameHelp" placeholder="{{ profile?.nombre }}">
                         <small id="emailHelp" class="form-text text-muted"></small>
                       </div>
                       <div class="form-group">
                         <label for="programa">Programa</label>
-                        <input type="text" class="form-control" id="programa" programader="Password">
+                        <input type="text" class="form-control" id="programa" name="programa" [(ngModel)]="profile.programa"  placeholder="{{ profile?.programa }}">
                       </div>
+                      <div class="form-group">
+                            <label for="programa">Email</label>
+                            <input type="text" class="form-control" id="email" placeholder="{{ profile.email }}" disabled>
+                          </div>
                       <button type="submit" class="btn btn-primary">Actualizar</button>
                     </form>
               </div>
+              <div class="row">
+                    <div class="form-group col-md-6">
+                            <label for="id_usuario">Imagen</label>
+                            <div class="custom-file">
+                                <input [(ngModel)]="imagen" (change)="onSubirFoto($event)" type="file" class="custom-file-input" name="imagen" accept="image/*">
+                                <label class="custom-file-label">{{ labelfoto }}</label>
+                            </div>
+                        </div>
+                        <div class="col-md-5 ml-auto mb-2">
+                            <progress max="100" [value]="( _imageService.uploadPercent | async)" class="progress-bar"></progress>
+                        </div>
+                        <div class="col-md-1">
+                            <i *ngIf="_imageService.uploadPercent | async" class="fa fa-check ok-check text-right"></i>
+                        </div>
+              </div>
           </div>
+          
       </div>
       <div class="col-md-6 mx-auto mt-2">
-          <div class="card">
-          </div>
+            <div class="card">
+                    <i (click)="deleteImagen()" class="fa fa-window-close eliminar-imagen text-right" aria-hidden="true"></i>
+                    <img class="card-img-top" [src]="profile.imagen | noimage ">
+                    <div class="card-body">
+                        <h5 class="card-title"></h5>
+                        <p class="card-text"></p>
+                        <p class="card-text"><small class="text-muted"></small></p>
+                    </div>
+                </div>
       </div>
   </div>
 </div>
