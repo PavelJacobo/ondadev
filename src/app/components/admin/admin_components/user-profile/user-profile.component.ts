@@ -11,7 +11,7 @@ import { DatabaseService } from 'src/app/services/database.service';
   styleUrls: ['./user-profile.component.css']
 })
 export class UserProfileComponent implements OnInit {
-  
+
   id_foto: string;
   labelfoto: any;
   public nombre: string;
@@ -31,37 +31,37 @@ export class UserProfileComponent implements OnInit {
   constructor(private _authService: AuthService,
               private _imageService: ImagenService,
               private _router: Router,
-              private _dbService: DatabaseService) { 
-                
+              private _dbService: DatabaseService) {
+
               }
 
   ngOnInit() {
     this.comprobarUserLogin();
   }
-  
+
 
 
   comprobarUserLogin() {
     this._authService.getAuth().subscribe(user => {
         if ( user ) {
-          console.log('USUARIO ', user);
+          // console.log('USUARIO ', user);
           this.profile.nombre = user.displayName;
           this.profile.id = user.uid;
           this.profile.email = user.email;
           this.profile.imagen = user.photoURL;
           this._dbService.getUserProfile(user.uid).subscribe(id => {
             id.forEach(doc => {
-              console.log(doc.id_content);
+              console.log(doc);
               this.profile.id_content = doc.id_content;
               this.profile.programa = doc.programa;
             });
           });
-          console.log('el get USER ESTE ', this.profile.id_content);
+          // console.log('el get USER ESTE ', this.profile.id_content);
           // console.log(this.profile);
         }
     });
   }
- 
+
 
   onSubirFoto( imagen ) {
 
@@ -91,10 +91,10 @@ export class UserProfileComponent implements OnInit {
         const id_imagen = `_${this.profile.nombre}_${this.profile.id}_${this.labelfoto}`;
         this._imageService.deleteUserImage(id_imagen);
         this.profile.imagen = '';
-  
+
       }
-  
-  
+
+
     }
 
     updateUser({value}: {value: Profile}){

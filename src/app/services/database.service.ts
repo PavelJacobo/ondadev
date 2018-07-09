@@ -46,16 +46,16 @@ export class DatabaseService {
 
   getUserProfile(idUser) {
     this.userCollection = this.db.collection('userProfile', ref => ref.where('id', '==', idUser) );
-  
+
    this.docId = this.userCollection.snapshotChanges().map( changes => {
         return changes.map(a => {
             const data = a.payload.doc.data() as Profile;
-            const id = a.payload.doc.id;
-            console.log('DATAAAA', data);
+            data.id_content = a.payload.doc.id;
+            // console.log('DATAAAA', data);
             return data;
         });
     });
     return this.docId;
   }
-  
+
 }
